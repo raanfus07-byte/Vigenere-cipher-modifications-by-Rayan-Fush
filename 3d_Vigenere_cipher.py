@@ -32,15 +32,14 @@ def start(arr, arr2, fkey, skey, mes, a):
         else:
             break
 
-    #print('---')
-    #print(f'fkey2: {fkey2} len {len(fkey2)}')
-    #print(f'skey2: {skey2} len {len(skey2)}')
-    #print(f'mes2: {mes2} len {len(mes2)}')
-
     if a == '1':
         mes3 = code(arr, fkey2, skey2, mes2)
     elif a == '2':
         mes3 = encode(arr, fkey2, skey2, mes2)
+    elif a == '3':
+        mes3 = math_code(fkey2, skey2, mes2)
+    elif a == '4':
+        mes3 = math_encode(fkey2, skey2, mes2)
     else:
         print('Error:start:if-else-block:1')
         return
@@ -73,9 +72,32 @@ def encode(arr, fkey, skey, mes):
 
     return mes2
 
+def math_code(fkey, skey, mes):
+    global N
+
+    mes2 = []
+
+    for i in range(len(mes)):
+        mis = (fkey[i] + skey[i] + mes[i]) % N
+        mes2.append(mis)
+
+    print(f'math_code mes2: {mes2}')
+    return mes2
+
+def math_encode(fkey, skey, mes):
+    global N
+    mes2 = []
+
+    for i in range(len(mes)):
+        mis = (mes[i] - fkey[i] - skey[i]) % N
+        mes2.append(mis)
+
+    print(f'math_encode mes2: {mes2}')
+    return mes2
 
 arr2 = 'абвгдежзийклмнопрстуфхцчшщъыьэюя 1234567890!?,.(){}[]:;№#$-_+=*&^%@"№/|`~<>'
 N = len(arr2)
+print(f'N: {N}')
 arr = [[[(x + y + z) % N for x in range(N)] for y in range(N)] for z in range(N)]
 
 print('---'*10)
@@ -86,7 +108,7 @@ print('Внимание! шифровка специфична, и не може
 print('---'*10)
 
 while True:
-    a = input('\nВведите опцию \n[1] зашифровать \n[2] расшифровать \n[0] выход \n:')
+    a = input('\nВведите опцию \n[1] зашифровать \n[2] расшифровать \n[3] зашифровать математическим методом \n[4] расшифровать математическим методом \n[0] выход \n:')
 
     if a == '1':
         fkey = input('введите первый ключ: ').lower().replace('ё', 'е')
@@ -94,6 +116,16 @@ while True:
         mes = input('введите сообщение которое нужно зашифровать: \n').lower().replace('ё', 'е')
         start(arr, arr2, fkey, skey, mes, a)
     elif a == '2':
+        fkey = input('введите первый ключ: ').lower().replace('ё', 'е')
+        skey = input('введите второй ключ: ').lower().replace('ё', 'е')
+        mes = input('введите сообщение которое нужно расшифровать: \n').lower().replace('ё', 'е')
+        start(arr, arr2, fkey, skey, mes, a)
+    elif a == '3':
+        fkey = input('введите первый ключ: ').lower().replace('ё', 'е')
+        skey = input('введите второй ключ: ').lower().replace('ё', 'е')
+        mes = input('введите сообщение которое нужно зашифровать: \n').lower().replace('ё', 'е')
+        start(arr, arr2, fkey, skey, mes, a)
+    elif a == '4':
         fkey = input('введите первый ключ: ').lower().replace('ё', 'е')
         skey = input('введите второй ключ: ').lower().replace('ё', 'е')
         mes = input('введите сообщение которое нужно расшифровать: \n').lower().replace('ё', 'е')
