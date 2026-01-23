@@ -23,6 +23,10 @@ def start(arr, arr2, key, mes, a):
         code(arr, arr2, key2, mes2)
     elif a == '2':
         encode(arr, arr2, key2, mes2)
+    elif a == '3':
+        math_code(key2, mes2)
+    elif a == '4':
+        math_encode(key2, mes2)
     else:
         print('Error:start:if-else-block:1') # защита от неверных команд
         return
@@ -54,25 +58,62 @@ def encode(arr, arr2, key, mes):
         mes3 += arr2[mes2[x]]
     print(mes3)
 
+def math_code(key, mes):
+    global N
+
+    mes2 = []
+
+    for i in range(len(mes)):
+        mis = (key[i] + mes[i]) % N
+        mes2.append(mis)
+
+    print(f'math_code mes2: {mes2}')
+
+    mes3 = ''
+    for x in range(len(mes2)):
+        mes3 += arr2[mes2[x]]
+    print(mes3)
+
+def math_encode(key, mes):
+    global N
+    mes2 = []
+
+    for i in range(len(mes)):
+        mis = (mes[i] - key[i]) % N
+        mes2.append(mis)
+
+    print(f'math_encode mes2: {mes2}')
+    mes3 = ''
+    for x in range(len(mes2)):
+        mes3 += arr2[mes2[x]]
+    print(mes3)
+
 arr2 = 'абвгдежзийклмнопрстуфхцчшщыьэюя 1234567890!?,.(){}[]:;№#$-_+=*&^%@"№/|`~<>'
 N = len(arr2)
 arr = [[(x + y) % N for x in range(N)] for y in range(N)]
 
 print('---'*10)
 print('Внимание! шифровка специфична, и не может взаимодействовать с онлайн шифровщиками Виженера, '
-      '\nона сделана настолько криво что сообщения могут быть расшифрованы только подобным кодом'
-      '\nв отличии от иных шифровщиков виженера, тут шифруются все, что вы вводите, от пробелов и обычных букв до спецсимволов и чисел'
-      f'\nдоступный ряд символов: {arr2}')
+      '\nонo сделано настолько криво что сообщения могут быть расшифрованы только подобным кодом'
+      f'\nдоступный ряд символов(шифруется все): {arr2}')
 print('---'*10)
 
 while True:
-    a = input('\nВведите опцию \n[1] зашифровать \n[2] расшифровать \n[0] выход \n:')
+    a = input('\nВведите опцию \n[1] зашифровать \n[2] расшифровать \n[3] зашифровать математическим методом \n[4] расшифровать математическим методом \n[0] выход \n:')
 
     if a == '1':
         key = input('введите ключ: ').lower().replace('ё', 'е')
         mes = input('введите сообщение которое нужно зашифровать: \n').lower().replace('ё', 'е').replace('ъ', 'ь')
         start(arr, arr2, key, mes, a)
     elif a == '2':
+        key = input('введите ключ: ').lower().replace('ё', 'е')
+        mes = input('введите сообщение которое нужно расшифровать: \n').lower().replace('ё', 'е').replace('ъ', 'ь')
+        start(arr, arr2, key, mes, a)
+    elif a == '3':
+        key = input('введите ключ: ').lower().replace('ё', 'е')
+        mes = input('введите сообщение которое нужно зашифровать: \n').lower().replace('ё', 'е').replace('ъ', 'ь')
+        start(arr, arr2, key, mes, a)
+    elif a == '4':
         key = input('введите ключ: ').lower().replace('ё', 'е')
         mes = input('введите сообщение которое нужно расшифровать: \n').lower().replace('ё', 'е').replace('ъ', 'ь')
         start(arr, arr2, key, mes, a)
