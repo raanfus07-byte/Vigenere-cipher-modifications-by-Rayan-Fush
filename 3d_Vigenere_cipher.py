@@ -1,16 +1,31 @@
+import time
+
 def start(arr, arr2, fkey, skey, mes, a):
     mes2 = []
     fkey2 = []
     skey2 = []
 
     for i in range(len(mes)):
-        mes2.append(arr2.index(mes[i]))
+        if mes[i] in arr2:
+            mes2.append(arr2.index(mes[i]))
+        else:
+            print(f'символа {mes[i]} нет, он заменен на пробел, раздел 0')
+            mes2.append(32)
 
     for i in range(len(skey)):
-        skey2.append(arr2.index(skey[i]))
+        if skey[i] in arr2:
+            skey2.append(arr2.index(skey[i]))
+        else:
+            print(f'символа {skey[i]} нет, он заменен на пробел, раздел 1')
+            skey2.append(32)
 
     for i in range(len(fkey)):
         fkey2.append(arr2.index(fkey[i]))
+        if fkey[i] in arr2:
+            fkey2.append(arr2.index(fkey[i]))
+        else:
+            print(f'символа {fkey[i]} нет, он заменен на пробел, раздел 2')
+            fkey2.append(32)
 
     print(f'fkey2: {fkey2}')
     print(f'skey2: {skey2}')
@@ -95,15 +110,14 @@ def math_encode(fkey, skey, mes):
     print(f'math_encode mes2: {mes2}')
     return mes2
 
-arr2 = 'абвгдежзийклмнопрстуфхцчшщъыьэюя 1234567890!?,.(){}[]:;№#$-_+=*&^%@"№/|`~<>'
+arr2 = 'абвгдежзийклмнопрстуфхцчшщъыьэюя 1234567890!?,.(){}[]:;№#$-—_+=*&^%@"№/|`~<>«»'
 N = len(arr2)
-print(f'N: {N}')
+#print(f'N: {N}')
 arr = [[[(x + y + z) % N for x in range(N)] for y in range(N)] for z in range(N)]
 
 print('---'*10)
 print('Внимание! шифровка специфична, и не может взаимодействовать с онлайн шифровщиками Виженера, '
-      '\nона сделана настолько криво что сообщения могут быть расшифрованы только подобным кодом'
-      '\nв отличии от иных шифровщиков виженера, тут шифруются все, что вы вводите, от пробелов и обычных букв до спецсимволов и чисел'
+      '\nшифруется любые символы что доступны в ряде ниже, все что не указанно в ряде то заменяется на пробел автоматически'
       f'\nдоступный ряд символов: {arr2}')
 print('---'*10)
 
@@ -135,3 +149,4 @@ while True:
         break
     else:
         print('неверная команда')
+        time.sleep(1.5)
